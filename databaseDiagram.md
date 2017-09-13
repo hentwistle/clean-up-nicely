@@ -1,1 +1,1 @@
-![Database Design](images/databasedesign.jpg)
+![Database Design](database_design.jpg)
