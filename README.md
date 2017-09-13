@@ -1,6 +1,4 @@
-# Heather Entwistle Individual Project: Clean Up Nicely
-
-This repository will serve as an example for the Fall 2017 Enterprise Java Class. 
+# Heather Entwistle Individual Project: Clean Up Nicely 
 
 ### Problem Statement
 
