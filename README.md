@@ -27,7 +27,7 @@ It's a perennial problem for anyone who doesn't live alone: your roommate or spo
 
 * [Screen Design](DesignDocuments/Screens.md)
 * [Application Flow](DesignDocuments/applicationFlow.md)
-* [Database Design](DesignDocuments/databaseDiagram.md)
+* [Database Design](databaseDiagram.md)
 
 ### [Project Plan](ProjectPlan.md)
 
