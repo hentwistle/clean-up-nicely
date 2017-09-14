@@ -12,3 +12,4 @@
 | 9/10/17| Worked on exercise 2 | 5.5 | Weekly total: 19.5|
 | 9/11/17 | Video and readings for week 3 + activity 1  | 2  |   | 
 | 9/12/17 | Finished project checkpoint #1 and added logging/tests to exercise 2| 3 | |
+| 9/13/17 | Finished project checkpoint #1 | 1 | |
