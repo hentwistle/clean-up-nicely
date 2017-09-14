@@ -16,7 +16,7 @@ It's a perennial problem for anyone who doesn't live alone: your roommate or spo
   * Store chores and household information
 * Web Services or APIs
   * Google Charts or a similar Chart-based API to display data
-* _____________ (independent research topic)
+* React (independent research topic)
 * Logging
   * Configurable logging using Log4J. In production, only errors will normally be logged, but logging at a debug level can be turned on to facilitate trouble-shooting. 
 * Site and database hosted on AWS
