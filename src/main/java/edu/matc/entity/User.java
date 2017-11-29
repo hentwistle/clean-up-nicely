@@ -6,6 +6,8 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A class to represent a user.
@@ -15,12 +17,13 @@ import java.time.temporal.ChronoUnit;
 @Entity
 @Table(name = "user")
 public class User {
-    @Id
+    //@Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name="increment", strategy = "increment")
     @Column(name="user_id")
     private int userid;
 
+    @Id
     @Column(name="username")
     private String username;
 
@@ -38,6 +41,14 @@ public class User {
 
     @Column(name="owner")
     private boolean owner;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "user_household",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "household_id")
+    )
+    private Set<Household> household;
 
     //@Column(name="date_of_birth")
     //@Convert(converter = LocalDateAttributeConverter.class)
@@ -90,7 +101,6 @@ public class User {
     public void setUserid(int userid) {
         this.userid = userid;
     }
-
 
     public String getUsername() {
         return username;
@@ -199,6 +209,7 @@ public class User {
                 ", owner='" + owner + '\'' +
                 '}';
     }
+
 
 
 }

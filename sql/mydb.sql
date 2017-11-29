@@ -19,7 +19,7 @@
 -- Table structure for table `chore-log-by-user`
 --
 
-DROP TABLE IF EXISTS `chore-log-by-user`;
+DROP TABLE IF EXISTS chore_log_by_user;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `chore-log-by-user` (
@@ -41,9 +41,9 @@ CREATE TABLE `chore-log-by-user` (
 -- Dumping data for table `chore-log-by-user`
 --
 
-LOCK TABLES `chore-log-by-user` WRITE;
-/*!40000 ALTER TABLE `chore-log-by-user` DISABLE KEYS */;
-/*!40000 ALTER TABLE `chore-log-by-user` ENABLE KEYS */;
+LOCK TABLES chore_log_by_user WRITE;
+/*!40000 ALTER TABLE chore_log_by_user DISABLE KEYS */;
+/*!40000 ALTER TABLE chore_log_by_user ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

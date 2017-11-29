@@ -23,6 +23,10 @@
         <!-- List the annotated entity class/es -->
         <mapping class="edu.matc.entity.User"/>
         <mapping class="edu.matc.entity.Household"/>
+        <mapping class="edu.matc.entity.ChoreLogByUser"/>
+        <mapping class="edu.matc.entity.Task"/>
+        <mapping class="edu.matc.entity.UserHousehold"/>
+        <mapping class="edu.matc.entity.Week"/>
 
     </session-factory>
 

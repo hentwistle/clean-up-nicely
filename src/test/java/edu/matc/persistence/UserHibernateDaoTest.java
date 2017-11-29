@@ -20,7 +20,7 @@ public class UserHibernateDaoTest {
         listOfUsersInitialSize = uhd.getAllUsers().size();
     }
 
-    @Test
+    /*@Test
     public void getAllUsersTest() throws Exception {
         List<User> users = uhd.getAllUsers();
         assertTrue(users.size() > 0);
@@ -62,5 +62,5 @@ public class UserHibernateDaoTest {
         uhd.delete(user);
 
         assertEquals("The user was not deleted", 2, uhd.getAllUsers().size());
-    }
+    } */
 }
