@@ -52,14 +52,10 @@
     <table id="userTable" class="display" cellspacing="0" width="100%">
 
         <thead>
-        <th>Housemates for ${user.userid} / ${user.username} / ${user.firstName} / ${user.lastName} / ${user.email} with household ID ${household.householdId} and name ${household.householdName}</th>
+        <th>Chores for ${mate.userid} / ${mate.username} / ${mate.firstName} / ${mate.lastName} / ${mate.email}</th>
         </thead>
         <tbody>
-        <c:forEach var="housemate" items="${housemates}">
-            <tr>
-                <td> <a href="index.jsp" id="${housemate.username}">${housemate.firstName} ${housemate.lastName}</a> - ${housemate.userid} / ${housemate.username} / ${housemate.firstName} / ${housemate.lastName} / ${housemate.email} </td>
-            </tr>
-        </c:forEach>
+
         </tbody>
     </table>
 
@@ -68,7 +64,7 @@
     <table id="logTable" class="display" cellspacing="0" width="100%">
 
         <thead>
-        <th>Logs for ${housemate.username}</th>
+        <th>Logs for ${mate.username}</th>
         </thead>
         <tbody>
         <c:forEach var="log" items="${logs}">

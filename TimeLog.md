@@ -13,3 +13,13 @@
 | 9/11/17 | Video and readings for week 3 + activity 1  | 2  |   | 
 | 9/12/17 | Finished project checkpoint #1 and added logging/tests to exercise 2| 3 | |
 | 9/13/17 | Finished project checkpoint #1 | 1 | |
+| 9/16/17 | Videos, activities, exercises | 3 | |
+| 9/17/17 | Aactivities, exercises, project | 2 | Weekly total: 11 |
+| 9/19/17 | Activities | 4 | |
+| 9/20/17 | Exercises | 2 | |
+| 9/21/17 | Videos | 3 | Weekly Total: 9 |
+| 9/26/17 | Videos, activity | 1 | |
+| 9/27/17 | Exercise | 4 | |
+| 9/28/17 | Finished exercise | 3 | Weekly Total: 8  |
+| 10/3/17 | Videos, exercises | 3 | |
+| 10/4/17 | Finished feedback for personal development presentations/individual projects | 1 | |

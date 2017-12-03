@@ -53,3 +53,8 @@ fabric.properties
 /src/test/resources/hibernate.cfg.xml
 /src/main/resources/database.properties
 /src/main/resources/hibernate.cfg.xml
+.idea/inspectionProfiles/
+src/main/webapp/css/
+src/test/java/edu/matc/entity/
+target/generated-sources/
+target/generated-test-sources/

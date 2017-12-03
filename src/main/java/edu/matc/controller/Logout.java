@@ -34,6 +34,7 @@ public class Logout extends HttpServlet {
 
         req.getSession().invalidate();
 
+        log.error("logged out");
         RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
 
         dispatcher.forward(req, resp);

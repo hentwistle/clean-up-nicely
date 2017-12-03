@@ -57,7 +57,7 @@
         <tbody>
         <form name="housemates" action="/loadRoommateInfo">
         <c:forEach var="housemate" items="${housemates}" varStatus="status">
-            <c:set var="user" value="${housemate.username}" scope="request"/>
+            <c:set var="housemate" value="${housemate.username}" scope="session" />
             <tr>
                 <td> <a href="/loadRoommateInfo" id="${housemate.username}" value="${housemate.username}">${housemate.firstName} ${housemate.lastName}</a> - ${housemate.userid} / ${housemate.username} / ${housemate.firstName} / ${housemate.lastName} / ${housemate.email} </td>
             </tr>

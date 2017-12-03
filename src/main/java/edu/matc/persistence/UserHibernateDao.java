@@ -253,16 +253,12 @@ public class UserHibernateDao {
 
         try {
             session = SessionFactoryProvider.getSessionFactory().openSession();
-            //household = (Household) session.get(Household.class, userid);
             String sql = "SELECT household_id, household_name FROM household WHERE household_id = (SELECT user_household.household_id from user_household where user_id = :user_id)";
             SQLQuery query = session.createSQLQuery(sql);
             query.addEntity(Household.class);
             query.setParameter("user_id", userid);
-            //query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-            //results = query.list();
             log.error("household result " + query.uniqueResult().toString());
             log.error(query.getQueryReturns().toString());
-            //log.error(query.getFirstResult());
             household = (Household) query.uniqueResult();
 
             //household.setHouseholdName();
