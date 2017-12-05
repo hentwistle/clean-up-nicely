@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This DAO helps retrieve all information associated with the household table
+ * of the database.
+ *
  * Created by hentwistle on 9/17/2017.
  */
 public class HouseholdHibernateDao {
@@ -151,24 +154,16 @@ public class HouseholdHibernateDao {
     public Household getHouseholdByUserId(int userid) {
         Household household = new Household(); //change this
         Session session = null;
-        //List results = null;
 
         try {
             session = SessionFactoryProvider.getSessionFactory().openSession();
-            //household = (Household) session.get(Household.class, userid);
             String sql = "SELECT household_id, household_name FROM household WHERE household_id = (SELECT user_household.household_id from user_household where user_id = :user_id)";
             SQLQuery query = session.createSQLQuery(sql);
             query.addEntity(Household.class);
             query.setParameter("user_id", userid);
-            //query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-            //results = query.list();
             log.error("household result " + query.uniqueResult().toString());
             log.error(query.getQueryReturns().toString());
-            //log.error(query.getFirstResult());
             household = (Household) query.uniqueResult();
-
-            //household.setHouseholdName();
-            //log.error("household list " + results.toString());
         } catch (HibernateException he) {
             log.error("Error getting household with userid: " + userid, he);
         } finally {
@@ -178,5 +173,4 @@ public class HouseholdHibernateDao {
         }
         return household;
     }
-
 }

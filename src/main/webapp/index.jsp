@@ -6,7 +6,7 @@
         <h2>Clean Up Nicely</h2>
 
        <br />
-        <form action="/login" class="form-inline">
+        <form action="/login" class="form-inline" method="post">
             <div class="form-group">
                 <label for="username">User Name</label>
                 <input type="text" class="form-control" id="username" name="username" aria-describedby="username" />

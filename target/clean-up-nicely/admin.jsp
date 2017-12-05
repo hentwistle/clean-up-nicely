@@ -7,7 +7,7 @@
 
         <h3>Add User</h3>
        <br />
-        <form action="/addUser" class="form-inline">
+        <form action="/updateUser" class="form-inline" method="post">
             <div class="form-group">
                 <label for="user_name">User Name</label>
                 <input type="text" class="form-control" id="user_name" name="user_name" aria-describedby="user_name" />
@@ -28,7 +28,7 @@
         <br />
             <form action="/updateUser" class="form-inline">
                 <div class="form-group">
-                    <label for="user_id_update">Enter User ID to Update</label>
+                    <label for="user_id_update">Enter Username to Update</label>
                     <input type="text" class="form-control" id="user_id_update" name="user_id_update" aria-describedby="user_id_update" />
                     <label for="first_name_update">Update First Name</label>
                     <input type="text" class="form-control" id="first_name_update" name="first_name_update" aria-describedby="first_name_update" />

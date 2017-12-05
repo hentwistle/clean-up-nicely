@@ -14,10 +14,6 @@
     } );
 
     $(document).ready( function () {
-        $('#logTable').DataTable();
-    } );
-
-    $(document).ready( function () {
         $('#taskTable').DataTable();
     } );
 </script>
@@ -52,7 +48,7 @@
     <table id="userTable" class="display" cellspacing="0" width="100%">
 
         <thead>
-        <th>Chores for ${mate.userid} / ${mate.username} / ${mate.firstName} / ${mate.lastName} / ${mate.email}</th>
+        <th>Chores for ${housemate.userid} / ${housemate.username} / ${housemate.firstName} / ${housemate.lastName} / ${housemate.email}</th>
         </thead>
         <tbody>
 
@@ -61,23 +57,6 @@
 
     <br /><br />
 
-    <table id="logTable" class="display" cellspacing="0" width="100%">
-
-        <thead>
-        <th>Logs for ${mate.username}</th>
-        </thead>
-        <tbody>
-        <c:forEach var="log" items="${logs}">
-            <tr>
-                <td> ${log.userId} / ${log.taskId} / ${log.weekId} / ${log.minutes}</td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
-
-    <br /><br />
-
-    <form action="/saveChores" class="form-inline" commandName="allTaskEdit">
         <table id="taskTable" class="display" cellspacing="0" width="100%">
 
             <thead>
@@ -85,17 +64,14 @@
             <th>Time</th>
             </thead>
             <tbody>
-            <c:forEach var="log" items="${logs}" varStatus="loop">
+            <c:forEach var="log" items="${housemate_logs}" varStatus="loop">
                 <tr>
                     <td>${tasks[loop.count - 1].taskName}</td>
-                    <td><input type="text" class="form-control" id="${log.taskId}" name="${log.taskId}" value=${log.minutes} aria-describedby="task_time" />
-                    </td>
+                    <td>${log.minutes}</td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
-        <button type="submit" name="submit" value="saveChores" class="btn btn-primary">Save Chores</button>
-    </form>
 
     <p></p>
     <p></p>

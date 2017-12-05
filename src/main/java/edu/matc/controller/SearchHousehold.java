@@ -1,6 +1,6 @@
 package edu.matc.controller;
 
-import edu.matc.persistence.UserDao;
+import edu.matc.persistence.HouseholdHibernateDao;
 import edu.matc.persistence.UserHibernateDao;
 import org.apache.log4j.Logger;
 
@@ -27,12 +27,12 @@ public class SearchHousehold extends HttpServlet {
 
         Logger log = Logger.getLogger(this.getClass());
 
-        UserHibernateDao uhd = new UserHibernateDao();
+        HouseholdHibernateDao hhd = new HouseholdHibernateDao();
 
         if (req.getParameter("submit").equals("viewAllHouseholds")) {
-            req.setAttribute("households", uhd.getAllHouseholds());
+            req.setAttribute("households", hhd.getAllHouseholds());
         } else {
-            req.setAttribute("households", uhd.getHouseholdById(Integer.parseInt(req.getParameter("household_id"))));
+            req.setAttribute("households", hhd.getHouseholdByUserId(Integer.parseInt(req.getParameter("household_id"))));
             log.error("Error log: " + req.getParameter("household_id"));
         }
 

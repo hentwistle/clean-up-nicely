@@ -15,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This DAO helps retrieve all information associated with the week table
+ * of the database.
+ *
  * Created by hentwistle on 9/17/2017.
  */
 public class WeekHibernateDao {

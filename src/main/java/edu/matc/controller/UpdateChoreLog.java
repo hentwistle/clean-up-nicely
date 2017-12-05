@@ -4,13 +4,15 @@ import edu.matc.entity.*;
 import edu.matc.persistence.*;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 @WebServlet("/saveChores")
 public class UpdateChoreLog extends HttpServlet {
@@ -40,8 +42,33 @@ public class UpdateChoreLog extends HttpServlet {
             clhd.update(choreLog);
         }
 
+        allLogsForUser = clhd.getAllLogsByUser(user.getUserid());
 
-        //allLogsForUser = clhd.getAllLogsByUser(user.getUserid());
+        Set<Week> uniqueWeeks = new HashSet<Week>();
+        List<ChoreLogByUser> choreLogsByWeek = null;
+
+        for (ChoreLogByUser log : allLogsForUser) {
+               uniqueWeeks.add(whd.getWeekById(log.getWeekId()));
+        }
+
+        List orderedList = new ArrayList(uniqueWeeks);
+        //Collections.sort(orderedList);
+
+
+        for (int i = 0; i < orderedList.size(); i++ ) {
+            int weekId = ((Week) orderedList.get(i)).getWeekId();
+                choreLogsByWeek = clhd.getChoreLogEntry(user.getUserid(), weekId);
+                req.setAttribute("chore_week", choreLogsByWeek);
+
+
+        }
+
+        //for (Week week2: uniqueWeeks) {
+//
+
+  //          choreLogsByWeek = clhd.getChoreLogEntry(user.getUserid(), week2.getWeekId());
+    //        req.setAttribute("chores_week_" + week2.getWeekId(), choreLogsByWeek);
+      //  }
 
         /*//for each week
         for (int i = 1; i <allLogsForUser.size(); i++) {
@@ -72,7 +99,10 @@ public class UpdateChoreLog extends HttpServlet {
         } */
 
         req.setAttribute("all_logs", allLogsForUser);
-        req.setAttribute("weeks", whd.getAllWeeks());
+        req.setAttribute("unique_weeks", orderedList);
+
+
+
 
         //clhd.getAllChoreLogs();
 

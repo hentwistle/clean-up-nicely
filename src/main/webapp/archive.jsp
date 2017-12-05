@@ -31,10 +31,15 @@
         <th>Logs</th>
         </thead>
         <tbody>
-        <c:forEach var="week" items="${weeks}">
-            <tr>
-                <td><h2> ${week.startDate} - ${week.endDate}</h2></td>
-            </tr>
+        <c:forEach var="week" items="${unique_weeks}" varStatus="loop">
+                <h2>${week.startDate} - ${week.endDate}</h2>
+                <c:forEach var="chore_entry" items="${chore_week}" varStatus="secondLoop">
+                    ${loop.count}
+                    <tr>
+                        <td>${tasks[secondLoop.count - 1].taskName} :  ${chore_entry.minutes}</td>
+
+                    </tr>
+                </c:forEach>
         </c:forEach>
         </tbody>
     </table>

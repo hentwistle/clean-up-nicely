@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This DAO helps retrieve all information associated with the chore_log_by_user table
+ * of the database.
+ *
  * Created by hentwistle on 9/17/2017.
  */
 public class ChoreLogHibernateDao {
@@ -28,7 +31,6 @@ public class ChoreLogHibernateDao {
         try {
             session = SessionFactoryProvider.getSessionFactory().openSession();
             choreLogs = session.createCriteria(ChoreLogByUser.class).list();
-            log.error("all chore logs " + choreLogs.toString());
         } catch (HibernateException he) {
             log.error("Error getting all chore logs", he);
         } finally {
@@ -48,9 +50,7 @@ public class ChoreLogHibernateDao {
      * @return ChoreLogByUser
      */
     public List getChoreLogEntry(int userId, int weekId) {
-        log.error("in getChoreLogEntry with userId " + userId + " and weekId " + weekId);
         List<ChoreLogByUser> logs = new ArrayList<ChoreLogByUser>();
-        //ChoreLogByUser choreLogByUser = new ChoreLogByUser();
         Session session = null;
         try {
             session = SessionFactoryProvider.getSessionFactory().openSession();
@@ -58,9 +58,6 @@ public class ChoreLogHibernateDao {
             criteria.add(Restrictions.eq("userId", userId));
             criteria.add(Restrictions.eq("weekId", weekId));
             logs = criteria.list();
-            //choreLogByUser = (ChoreLogByUser) criteria.uniqueResult();
-            //log.error("criteria unique result: " + choreLogByUser.toString());
-            //choreLogByUser = (ChoreLogByUser) session.get(ChoreLogByUser.class, userId);
         } catch (HibernateException he) {
             log.error("Error getting chore log entry with userId: " + userId + " and weekId: " + weekId, he);
         } finally {
@@ -72,7 +69,6 @@ public class ChoreLogHibernateDao {
     }
 
     public List getAllLogsByUser(int userId) {
-        log.error("in getAllLogsByUser with userId " + userId);
         List<ChoreLogByUser> logs = new ArrayList<ChoreLogByUser>();
         Session session = null;
         try {
@@ -98,8 +94,6 @@ public class ChoreLogHibernateDao {
      * @return ChoreLogByUser
      */
     public ChoreLogByUser getTime(int userId, int weekId, int taskId) {
-        log.error("in getTime with userId " + userId + " and weekId " + weekId + "and taskId " + taskId);
-        //List<ChoreLogByUser> logs = new ArrayList<ChoreLogByUser>();
         ChoreLogByUser choreLogByUser = new ChoreLogByUser();
 
         Session session = null;
@@ -119,8 +113,8 @@ public class ChoreLogHibernateDao {
         }
         return choreLogByUser;
     }
-    /** save new household
-     * @param household household to insert
+    /** save new choreLogByUser
+     * @param choreLogByUser the choreLogByUser to insert
      * @return id of the inserted household
      */
 

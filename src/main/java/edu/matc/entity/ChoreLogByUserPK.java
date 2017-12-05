@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 public class ChoreLogByUserPK implements Serializable {
-    private int userId;
+    /*private int userId;
     private int weekId;
     private int taskId;
 
@@ -61,5 +61,5 @@ public class ChoreLogByUserPK implements Serializable {
         result = 31 * result + weekId;
         result = 31 * result + taskId;
         return result;
-    }
+    } */
 }

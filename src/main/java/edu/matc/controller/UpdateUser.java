@@ -2,11 +2,7 @@ package edu.matc.controller;
 
 import edu.matc.entity.Household;
 import edu.matc.entity.User;
-import edu.matc.persistence.GenericServiceImpl;
-import edu.matc.persistence.IGenericService;
-import edu.matc.persistence.SessionFactoryProvider;
 import edu.matc.persistence.UserHibernateDao;
-import edu.matc.utility.HibernateUtil;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,39 +23,31 @@ import java.io.IOException;
 public class UpdateUser extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         User user =null;
-        Household household=null;
 
-        IGenericService<User> userService = new GenericServiceImpl<User>(
-                User.class, HibernateUtil.getSessionFactory());
-        IGenericService<Household> householdService = new GenericServiceImpl<Household>(
-                Household.class, HibernateUtil.getSessionFactory());
-        //userService.deleteAll();
+        UserHibernateDao uhd = new UserHibernateDao();
+
+        user  = uhd.getUser(req.getParameter("user_id_update").toString());
 
         if (req.getParameter("submit").equals("update")) {
-            user = new User();
-            user.setUserid(1);
-            user.setUsername("hentwistle2");
-            userService.save(user);
+            user.setFirstName(req.getParameter("first_name_update"));
+            user.setLastName(req.getParameter("last_name_update"));
+            uhd.update(user);
+        } else if (req.getParameter("submit").equals("delete")) {
+            uhd.delete(user);
+        } else if (req.getParameter("submit").equals("add")) {
+            user.setUsername(req.getParameter("user_name"));
+            user.setEmail(req.getParameter("email"));
+            user.setPassword(req.getParameter("password"));
+            user.setFirstName(req.getParameter("first_name"));
+            user.setLastName(req.getParameter("last_name"));
+            user.setOwner(false);
+            req.setAttribute("users", uhd.insert(user));
         }
 
 
-
-        //UserHibernateDao uhd = new UserHibernateDao();
-
-        //User user;
-
-        //user  = uhd.getUser(Integer.parseInt(req.getParameter("user_id_update")));
-
-        /*if (req.getParameter("submit").equals("update")) {
-            //user.setFirstName(req.getParameter("first_name_update"));
-            //user.setLastName(req.getParameter("last_name_update"));
-            //uhd.update(user);
-        } else if (req.getParameter("submit").equals("delete")) {
-            //uhd.delete(user);
-        } */
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("/addResults.jsp");
 

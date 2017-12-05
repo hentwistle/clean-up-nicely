@@ -2,10 +2,7 @@ package edu.matc.controller;
 
 import com.sun.media.jfxmedia.logging.Logger;
 import edu.matc.entity.*;
-import edu.matc.persistence.ChoreLogHibernateDao;
-import edu.matc.persistence.TaskHibernateDao;
-import edu.matc.persistence.UserHibernateDao;
-import edu.matc.persistence.WeekHibernateDao;
+import edu.matc.persistence.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,7 +18,9 @@ import java.util.List;
 import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
 /**
- * A simple servlet to welcome the user.
+ * A servlet that either logs in in the returning user or
+ * signs up a new user.
+ *
  * @author hentwistle
  */
 
@@ -29,68 +28,58 @@ import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
         urlPatterns = {"/login"}
 )
 public class Login extends HttpServlet {
+    UserHibernateDao uhd = new UserHibernateDao();
+    WeekHibernateDao whd = new WeekHibernateDao();
+    TaskHibernateDao thd = new TaskHibernateDao();
+    HouseholdHibernateDao hhd = new HouseholdHibernateDao();
+    ChoreLogHibernateDao clhd = new ChoreLogHibernateDao();
+
+    User user = null;
+    Household household = null;
+    Week week = null;
+    ChoreLogByUser choreLogByUser = null;
+    Date date = null;
+
+    List<User> housemates = null;
+    List<Week> weeks = null;
+    List<Task> tasks = null;
+    List<ChoreLogByUser> logs = null;
 
     private final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(this.getClass());
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String dispatchString = "";
-        UserHibernateDao uhd = new UserHibernateDao();
-        User user = null;
-        Household household = null;
-        List<User> housemates = null;
-        WeekHibernateDao whd = new WeekHibernateDao();
-        Week week = null;
-        List<Week> weeks = null;
-        TaskHibernateDao thd = new TaskHibernateDao();
-        List<Task> tasks = null;
-        List<ChoreLogByUser> logs = null;
-        ChoreLogHibernateDao clhd = new ChoreLogHibernateDao();
-        ChoreLogByUser choreLogByUser = null;
-        Date date = null;
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String dispatchString = "";
+
+        //get user and set variables based on that
+        user  = uhd.getUser(req.getParameter("username"));
+        household = hhd.getHouseholdByUserId(user.getUserid());
+        housemates = uhd.getAllUsersByHousehold(household.getHouseholdId());
+        housemates.remove(user.getUserid() - 1);
+        tasks = thd.getAllTasks();
+
+        //get the current date
         date = getDate();
 
-        user  = uhd.getUser(req.getParameter("username"));
-        household = uhd.getHouseholdByUserId(user.getUserid());
-        housemates = uhd.getAllUsersByHousehold(household.getHouseholdId());
-        log.error("size of housemates " + housemates.size());
-        housemates.remove(user.getUserid() - 1);
-        log.error("size of housemates " + housemates.size());
-        //week = whd.getWeekById(6);
-        weeks = whd.getAllWeeks();
-        log.error(weeks.toString());
+        //set the week to align with the current date
+        week = getWeekFromDatabase(date);
 
-        for (Week testWeek : weeks) {
-
-            if (date.before(testWeek.getEndDate()) && date.after(testWeek.getStartDate())) {
-                week = whd.getWeekById(testWeek.getWeekId());
-                break;
-            }
-        }
-
-        tasks = thd.getAllTasks();
+        //get the logs from the database
         logs = clhd.getChoreLogEntry(user.getUserid(), week.getWeekId());
 
-
+        //if they don't exist, create them
         if (logs.size() == 0) {
-            log.info("logs created");
-            for (Task task : tasks) {
-                choreLogByUser = new ChoreLogByUser();
-                choreLogByUser.setMinutes(0);
-                choreLogByUser.setUserId(user.getUserid());
-                choreLogByUser.setWeekId(week.getWeekId());
-                choreLogByUser.setTaskId(task.getTaskId());
-
-                clhd.insert(choreLogByUser);
-            }
+            createChoreLogsForWeek(logs);
         }
 
+        //for each chore, get the time entered in the database if it has already eben entered
         for (ChoreLogByUser choreLog : logs) {
             choreLogByUser = clhd.getTime(choreLog.getUserId(), choreLog.getWeekId(), choreLog.getTaskId());
         }
 
 
+        //set attributes for returning user
         if (req.getParameter("submit").equals("signIn")) {
             String inputPassword = req.getParameter("password");
             String userPassword = user.getPassword();
@@ -101,7 +90,7 @@ public class Login extends HttpServlet {
                 req.getSession().setAttribute("housemates", housemates);
                 req.getSession().setAttribute("week", week);
                 req.setAttribute("logs", logs);
-                req.setAttribute("tasks", tasks);
+                req.getSession().setAttribute("tasks", tasks);
 
                 dispatchString = "main.jsp";
             } else {
@@ -109,6 +98,8 @@ public class Login extends HttpServlet {
             }
 
         } else if (req.getParameter("submit").equals("signUp")) {
+
+            //set attributes for new user
             user.setUsername(req.getParameter("username"));
             user.setPassword(req.getParameter("password"));
             log.error("you are passing through a user with username " + user.getUsername() + " and password " + user.getPassword());
@@ -120,6 +111,57 @@ public class Login extends HttpServlet {
         dispatcher.forward(req, resp);
     }
 
+    /**
+     * If the chore logs for this week don't currently exist in the database,
+     * this method creates them.
+     *
+     * @param logs the list of chore log entries for this user
+     * @return the logs after they've been initialized with data
+     */
+    private List<ChoreLogByUser> createChoreLogsForWeek(List<ChoreLogByUser> logs) {
+        log.info("logs created");
+        for (Task task : tasks) {
+            choreLogByUser = new ChoreLogByUser();
+            choreLogByUser.setMinutes(0);
+            choreLogByUser.setUserId(user.getUserid());
+            choreLogByUser.setWeekId(week.getWeekId());
+            choreLogByUser.setTaskId(task.getTaskId());
+
+            clhd.insert(choreLogByUser);
+
+        }
+
+        logs = clhd.getChoreLogEntry(user.getUserid(), week.getWeekId());
+
+        return logs;
+    }
+
+    /**
+     * Takes the date that was retrieved and looks in the database for the
+     * corresponding week.
+     *
+     * @param date  the current date
+     * @return the current week
+     */
+    private Week getWeekFromDatabase(Date date) {
+        weeks = whd.getAllWeeks();
+
+        for (Week testWeek : weeks) {
+
+            if (date.before(testWeek.getEndDate()) && date.after(testWeek.getStartDate())) {
+                week = whd.getWeekById(testWeek.getWeekId());
+                log.error("the week is getting set to week " + week.getWeekId());
+            }
+        }
+
+        return week;
+    }
+
+    /**
+     * gets the current date
+     *
+     * @return date     the date of the current week
+     */
     private Date getDate() {
         Date date = new Date();
         Calendar cal = Calendar.getInstance();

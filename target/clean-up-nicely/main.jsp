@@ -55,14 +55,16 @@
         <th>Housemates for ${user.userid} / ${user.username} / ${user.firstName} / ${user.lastName} / ${user.email} with household ID ${household.householdId} and name ${household.householdName}</th>
         </thead>
         <tbody>
-        <form name="housemates" action="/loadRoommateInfo">
-        <c:forEach var="housemate" items="${housemates}" varStatus="status">
-            <c:set var="${housemate.username}" value="${housemate.username}" scope="session" />
+        <c:forEach var="housemate" items="${housemates}">
             <tr>
-                <td> <a href="/loadRoommateInfo" id="${housemate.username}" value="${housemate.username}">${housemate.firstName} ${housemate.lastName}</a> - ${housemate.userid} / ${housemate.username} / ${housemate.firstName} / ${housemate.lastName} / ${housemate.email} </td>
-            </tr>
+
+                <c:url value="/loadRoommateInfo" var="url" scope="request">
+                    <c:param name="housemate" value="${housemate.username}"/>
+
+                </c:url>
+                <td><a href="${requestScope.url}" id="${housemate.username}" value="${housemate.username}">${housemate.firstName} ${housemate.lastName}</a> - ${housemate.userid} / ${housemate.username} / ${housemate.firstName} / ${housemate.lastName} / ${housemate.email} </td>
+               </tr>
         </c:forEach>
-        </form>
         </tbody>
     </table>
 

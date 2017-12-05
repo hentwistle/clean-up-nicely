@@ -31,15 +31,8 @@ public class LoadRoommateInfo extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        log.error("setting housemate username to " + req.getSession().getAttribute("housemate"));
-        log.error("also setting housemate to " + req.getAttribute("housemate"));
         log.error("param " + req.getParameter("housemate"));
-        log.error(req.getServletPath().toString());
-        log.error(req.getContextPath().toString());
-        log.error(req.getPathInfo().toString());
-        log.error(req.getSession().toString());
-        log.error(req.getSession().getAttributeNames().toString());
-        User roommate = null;
+        User housemate = null;
         UserHibernateDao uhd = new UserHibernateDao();
         Week week = null;
 
@@ -49,13 +42,13 @@ public class LoadRoommateInfo extends HttpServlet {
         ChoreLogHibernateDao clhd = new ChoreLogHibernateDao();
         ChoreLogByUser choreLogByUser = null;
 
-        roommate = uhd.getUser(req.getSession().getAttribute("housemate").toString());
-        req.setAttribute("housemate", roommate);
+        housemate = uhd.getUser(req.getParameter("housemate"));
+        req.setAttribute("housemate", housemate);
 
         week = (Week) req.getSession().getAttribute("week");
 
         tasks = thd.getAllTasks();
-        logs = clhd.getChoreLogEntry(roommate.getUserid(), week.getWeekId());
+        logs = clhd.getChoreLogEntry(housemate.getUserid(), week.getWeekId());
 
 
         if (logs.size() == 0) {
@@ -63,35 +56,17 @@ public class LoadRoommateInfo extends HttpServlet {
             for (Task task : tasks) {
                 choreLogByUser = new ChoreLogByUser();
                 choreLogByUser.setMinutes(0);
-                choreLogByUser.setUserId(roommate.getUserid());
+                choreLogByUser.setUserId(housemate.getUserid());
                 choreLogByUser.setWeekId(week.getWeekId());
                 choreLogByUser.setTaskId(task.getTaskId());
 
                 clhd.insert(choreLogByUser);
+
+                logs = clhd.getChoreLogEntry(housemate.getUserid(), week.getWeekId());
             }
         }
 
-        for (ChoreLogByUser choreLog : logs) {
-            choreLogByUser = clhd.getTime(choreLog.getUserId(), choreLog.getWeekId(), choreLog.getTaskId());
-        }
-
         req.setAttribute("housemate_logs", logs);
-
-        /*ChoreLogByUser choreLog = new ChoreLogByUser();
-        String minutes = null;
-        List<ChoreLogByUser> allLogsForUser = null;
-
-        tasks = thd.getAllTasks();
-
-        for (int i = 1; i < tasks.size(); i++) {
-            minutes = req.getParameter(String.valueOf(i));
-            choreLog.setUserId(roommate.getUserid());
-            choreLog.setWeekId(week.getWeekId());
-            choreLog.setTaskId(i);
-            choreLog.setMinutes(Integer.parseInt(minutes));
-            clhd.update(choreLog);
-        } */
-
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("housemate.jsp");
 
