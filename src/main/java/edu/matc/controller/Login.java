@@ -3,6 +3,7 @@ package edu.matc.controller;
 import com.sun.media.jfxmedia.logging.Logger;
 import edu.matc.entity.*;
 import edu.matc.persistence.*;
+import sun.java2d.pipe.SpanShapeRenderer;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -89,6 +93,8 @@ public class Login extends HttpServlet {
                 req.getSession().setAttribute("household", household);
                 req.getSession().setAttribute("housemates", housemates);
                 req.getSession().setAttribute("week", week);
+                req.getSession().setAttribute("start_date", formatDate(week.getStartDate()));
+                req.getSession().setAttribute("end_date", formatDate(week.getEndDate()));
                 req.setAttribute("logs", logs);
                 req.getSession().setAttribute("tasks", tasks);
 
@@ -155,6 +161,16 @@ public class Login extends HttpServlet {
         }
 
         return week;
+    }
+
+    /**
+     * gets the current date
+     *
+     * @return date     the date of the current week
+     */
+    private String formatDate(Date date) {
+        String dateString = new SimpleDateFormat("MMMMM dd, yyyy").format(date);
+        return dateString;
     }
 
     /**

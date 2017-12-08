@@ -2,19 +2,10 @@
 <c:set var="title" value="Search Results" />
 <%@include file="head.jsp"%>
 
-
 <script type="text/javascript" class="init">
 
     $(document).ready( function () {
-        $('#dateTable').DataTable();
-    } );
-
-    $(document).ready( function () {
         $('#userTable').DataTable();
-    } );
-
-    $(document).ready( function () {
-        $('#logTable').DataTable();
     } );
 
     $(document).ready( function () {
@@ -22,93 +13,89 @@
     } );
 </script>
 
+<html>
+    <head>
+        <link href="css/cover.css" rel="stylesheet">
+    </head>
+<body>
 
-<html><body>
+<div class="site-wrapper">
 
-<form action="/logout" class="form-inline" commandName="logout">
-    <button type="submit" name="submit" value="logout" formaction="/logout" class="btn btn-primary">Log Out</button>
-</form>
+    <div class="site-wrapper-inner">
 
+        <div class="cover-container">
 
-<%--TODO Pretty up the results!--%>
-<div class="container-fluid">
-    <h2>Clean Up Nicely</h2>
+            <header class="masthead clearfix">
+                <div class="inner">
+                    <h3 class="masthead-brand">Clean Up Nicely</h3>
+                    <br />
+                    <nav class="nav nav-masthead">
+                        <a class="nav-link active" href="main.jsp">Home</a>
+                        <div class="dropdown div-inline">
+                            <a class="dropdown-toggle nav-link" type="button" id="dropdownMenu1" data-toggle="dropdown">Housemates <span class="caret"></span> </a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                <c:forEach var="housemate" items="${housemates}">
+                                    <tr>
 
-    <table id="dateTable" class="display" cellspacing="0" width="100%">
+                                        <c:url value="/loadRoommateInfo" var="url" scope="request">
+                                            <c:param name="housemate" value="${housemate.username}"/>
 
-        <thead>
-        <th>Week</th>
-        </thead>
-        <tbody>
-            <tr>
-                <td>${week.weekId} - ${week.startDate} - ${week.endDate}</td>
-            </tr>
-        </tbody>
-    </table>
+                                        </c:url>
+                                        <li role="presentation"><a role="menuitem" tabindex="-1" href="${requestScope.url}" id="${housemate.username}" value="${housemate.username}">${housemate.firstName} ${housemate.lastName}</a></li>
+                                    </tr>
+                                </c:forEach>
+                            </ul>
+                        </div>
+                        <a class="nav-link" href="household.jsp">Household</a>
+                    </nav>
+                </div>
+            </header>
 
-    <br /><br />
+            <main role="main" class="inner cover">
+                <h1 class="cover-heading">Chores for ${user.username}</h1>
+                <h4 class="cover-heading">${start_date} - ${end_date}</h4>
+                <p class="lead">
 
+                <form action="/saveChores" class="form-inline" commandName="allTaskEdit">
+                <table id="taskTable" class="display" cellspacing="0" width="100%">
 
-    <table id="userTable" class="display" cellspacing="0" width="100%">
+                    <thead>
+                    <th>Tasks</th>
+                    <th>Minutes</th>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="log" items="${logs}" varStatus="loop">
+                        <tr>
+                            <td>${tasks[loop.count - 1].taskName}</td>
+                            <td><input type="text" class="form-control" id="${log.taskId}" name="${log.taskId}" value=${log.minutes} />
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
 
-        <thead>
-        <th>Housemates for ${user.userid} / ${user.username} / ${user.firstName} / ${user.lastName} / ${user.email} with household ID ${household.householdId} and name ${household.householdName}</th>
-        </thead>
-        <tbody>
-        <c:forEach var="housemate" items="${housemates}">
-            <tr>
+            </form></p>
 
-                <c:url value="/loadRoommateInfo" var="url" scope="request">
-                    <c:param name="housemate" value="${housemate.username}"/>
+                <button type="submit" name="submit" value="saveChores" class="btn btn-lg btn-secondary">Save Chores</button>
 
-                </c:url>
-                <td><a href="${requestScope.url}" id="${housemate.username}" value="${housemate.username}">${housemate.firstName} ${housemate.lastName}</a> - ${housemate.userid} / ${housemate.username} / ${housemate.firstName} / ${housemate.lastName} / ${housemate.email} </td>
-               </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+            </main>
 
-    <br /><br />
+            <footer class="mastfoot">
+                <div class="inner">
+                    <p><a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
 
-    <table id="logTable" class="display" cellspacing="0" width="100%">
+                    <form action="/logout" class="form-inline" commandName="logout">
+                        <button type="submit" name="submit" value="logout" formaction="/logout" class="btn btn-lg btn-secondary" id="btn-logout">Log Out</button>
+                    </form>
 
-        <thead>
-        <th>Logs
-        </thead>
-        <tbody>
-        <c:forEach var="log" items="${logs}">
-            <tr>
-                <td> ${log.userId} / ${log.taskId} / ${log.weekId} / ${log.minutes}</td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+                </div>
+            </footer>
 
-    <br /><br />
+        </div>
 
-    <form action="/saveChores" class="form-inline" commandName="allTaskEdit">
-    <table id="taskTable" class="display" cellspacing="0" width="100%">
+    </div>
 
-        <thead>
-        <th>Tasks</th>
-        <th>Time</th>
-        </thead>
-        <tbody>
-        <c:forEach var="log" items="${logs}" varStatus="loop">
-            <tr>
-                <td>${tasks[loop.count - 1].taskName}</td>
-                <td><input type="text" class="form-control" id="${log.taskId}" name="${log.taskId}" value=${log.minutes} aria-describedby="task_time" />
-                </td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
-    <button type="submit" name="submit" value="saveChores" class="btn btn-primary">Save Chores</button>
-    </form>
-
-    <p></p>
-    <p></p>
-    <p></p>
+</div>
 
 </body>
 </html>
