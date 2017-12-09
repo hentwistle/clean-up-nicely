@@ -23,19 +23,23 @@ import java.util.List;
  */
 
 @WebServlet(
-        urlPatterns = {"/logout"}
+        urlPatterns = {"/user/logout"}
 )
 public class Logout extends HttpServlet {
 
     private final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(this.getClass());
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         req.getSession().invalidate();
 
         log.error("logged out");
-        RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
+        log.error(req.getServletPath());
+        log.error(req.getContextPath());
+        log.error(req.getPathTranslated());
+        log.error(req.getPathInfo());
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/index.jsp");
 
         dispatcher.forward(req, resp);
     }

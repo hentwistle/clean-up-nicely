@@ -29,7 +29,7 @@ import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
  */
 
 @WebServlet(
-        urlPatterns = {"/login"}
+        urlPatterns = {"/user/login"}
 )
 public class Login extends HttpServlet {
     UserHibernateDao uhd = new UserHibernateDao();
@@ -53,11 +53,11 @@ public class Login extends HttpServlet {
 
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String dispatchString = "";
 
         //get user and set variables based on that
-        user  = uhd.getUser(req.getParameter("username"));
+        user  = uhd.getUser(req.getRemoteUser());
         household = hhd.getHouseholdByUserId(user.getUserid());
         housemates = uhd.getAllUsersByHousehold(household.getHouseholdId());
         housemates.remove(user.getUserid() - 1);
@@ -84,11 +84,11 @@ public class Login extends HttpServlet {
 
 
         //set attributes for returning user
-        if (req.getParameter("submit").equals("signIn")) {
-            String inputPassword = req.getParameter("password");
-            String userPassword = user.getPassword();
+        //if (req.getParameter("submit").equals("signIn")) {
+            //String inputPassword = req.getParameter("password");
+            //String userPassword = user.getPassword();
 
-            if (inputPassword.equals(userPassword)) {
+            //if (inputPassword.equals(userPassword)) {
                 req.getSession().setAttribute("user", user);
                 req.getSession().setAttribute("household", household);
                 req.getSession().setAttribute("housemates", housemates);
@@ -99,18 +99,18 @@ public class Login extends HttpServlet {
                 req.getSession().setAttribute("tasks", tasks);
 
                 dispatchString = "main.jsp";
-            } else {
-                log.error("your password does not match");
-            }
+            //} else {
+            //    log.error("your password does not match");
+            //}
 
-        } else if (req.getParameter("submit").equals("signUp")) {
+        //} else if (req.getParameter("submit").equals("signUp")) {
 
             //set attributes for new user
-            user.setUsername(req.getParameter("username"));
-            user.setPassword(req.getParameter("password"));
-            log.error("you are passing through a user with username " + user.getUsername() + " and password " + user.getPassword());
-            dispatchString = "signUp.jsp";
-        }
+            //user.setUsername(req.getParameter("username"));
+            //user.setPassword(req.getParameter("password"));
+            //log.error("you are passing through a user with username " + user.getUsername() + " and password " + user.getPassword());
+            //dispatchString = "signUp.jsp";
+        //}
 
         RequestDispatcher dispatcher = req.getRequestDispatcher(dispatchString);
 

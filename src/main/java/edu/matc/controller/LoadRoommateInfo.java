@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 @WebServlet(
-        urlPatterns = {"/loadRoommateInfo"}
+        urlPatterns = {"/user/loadRoommateInfo"}
 )
 public class LoadRoommateInfo extends HttpServlet {
 

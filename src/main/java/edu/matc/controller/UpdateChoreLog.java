@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 
-@WebServlet("/saveChores")
+@WebServlet("/user/saveChores")
 public class UpdateChoreLog extends HttpServlet {
     //private static final long serialVersionUID = 1L;
 

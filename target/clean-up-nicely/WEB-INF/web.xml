@@ -6,4 +6,40 @@
         id="Your_WebApp_ID"
         version="2.5">
   <display-name>Archetype Created Web Application</display-name>
+
+<security-constraint>
+  <web-resource-collection>
+    <web-resource-name>admin</web-resource-name>
+    <url-pattern>/admin.jsp</url-pattern>
+  </web-resource-collection>
+  <auth-constraint>
+    <role-name>admin</role-name>
+  </auth-constraint>
+</security-constraint>
+
+<security-constraint>
+<web-resource-collection>
+  <web-resource-name>user</web-resource-name>
+  <url-pattern>/user/*</url-pattern>
+</web-resource-collection>
+<auth-constraint>
+  <role-name>user</role-name>
+</auth-constraint>
+</security-constraint>
+
+<security-role>
+<role-name>user</role-name>
+</security-role>
+<security-role>
+<role-name>admin</role-name>
+</security-role>
+
+<login-config>
+<auth-method>FORM</auth-method>
+<form-login-config>
+  <form-login-page>/user/login.jsp</form-login-page>
+  <form-error-page>/failedLogin.jsp</form-error-page>
+</form-login-config>
+</login-config>
+
 </web-app>
