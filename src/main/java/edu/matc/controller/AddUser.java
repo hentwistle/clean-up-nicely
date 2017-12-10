@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * A simple servlet to welcome the user.
+ * A simple servlet to add a user.
  * @author hentwistle
  */
 
@@ -21,23 +21,40 @@ import java.io.IOException;
 )
 public class AddUser extends HttpServlet {
 
+    private final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(this.getClass());
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         User user = new User();
-        user.setUsername(req.getParameter("user_name"));
+        UserHibernateDao uhd = new UserHibernateDao();
+
+        log.error(req.getParameter("username"));
+        log.error(req.getParameter("email"));
+        log.error(req.getParameter("password"));
+        log.error(req.getParameter("first_name"));
+        log.error(req.getParameter("last_name"));
+        log.error(uhd.getAllUsers().size());
+
+        user.setUserid(uhd.getAllUsers().size() + 1);
+        user.setUsername(req.getParameter("username"));
         user.setEmail(req.getParameter("email"));
         user.setPassword(req.getParameter("password"));
         user.setFirstName(req.getParameter("first_name"));
         user.setLastName(req.getParameter("last_name"));
         user.setOwner(false);
 
-        UserHibernateDao uhd = new UserHibernateDao();
         if (req.getParameter("submit").equals("add")) {
-            req.setAttribute("users", uhd.insert(user));
+            uhd.insert(user);
+        }
+        req.setAttribute("user", user);
+
+        if (req.getUserPrincipal() == null) {
+            req.getSession(); // create session before logging in
+            req.login(user.getUsername(), user.getPassword());
         }
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/addResults.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("user/login");
 
         dispatcher.forward(req, resp);
     }
