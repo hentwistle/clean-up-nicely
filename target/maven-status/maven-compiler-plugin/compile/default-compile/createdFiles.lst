@@ -1,7 +1,5 @@
 edu\matc\controller\SearchUser.class
 edu\matc\persistence\WeekHibernateDao.class
-edu\matc\entity\UserHouseholdPK.class
-edu\matc\entity\UserHousehold.class
 edu\matc\entity\Task.class
 edu\matc\persistence\HouseholdHibernateDao.class
 edu\matc\controller\LoadRoommateInfo.class
@@ -9,6 +7,7 @@ edu\matc\entity\Household.class
 edu\matc\controller\Login.class
 edu\matc\controller\SearchHousehold.class
 edu\matc\entity\ChoreLogByUser.class
+edu\matc\entity\UserRole.class
 edu\matc\persistence\Database.class
 edu\matc\controller\AddUser.class
 edu\matc\utility\LocalDateAttributeConverter.class
@@ -18,6 +17,7 @@ edu\matc\entity\ChoreLogByUserPK.class
 edu\matc\controller\UpdateUser.class
 edu\matc\entity\User.class
 edu\matc\persistence\ChoreLogHibernateDao.class
+edu\matc\persistence\UserRoleHibernateDao.class
 edu\matc\controller\UpdateChoreLog.class
 edu\matc\entity\Week.class
 edu\matc\persistence\SessionFactoryProvider.class

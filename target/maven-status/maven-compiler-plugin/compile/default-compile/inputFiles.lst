@@ -1,7 +1,5 @@
-C:\Users\Heather\localrepos\clean-up-nicely\src\main\java\edu\matc\entity\UserHousehold.java
 C:\Users\Heather\localrepos\clean-up-nicely\src\main\java\edu\matc\controller\Logout.java
 C:\Users\Heather\localrepos\clean-up-nicely\src\main\java\edu\matc\controller\UpdateChoreLog.java
-C:\Users\Heather\localrepos\clean-up-nicely\src\main\java\edu\matc\entity\UserHouseholdPK.java
 C:\Users\Heather\localrepos\clean-up-nicely\src\main\java\edu\matc\entity\ChoreLogByUserPK.java
 C:\Users\Heather\localrepos\clean-up-nicely\src\main\java\edu\matc\controller\AddUser.java
 C:\Users\Heather\localrepos\clean-up-nicely\src\main\java\edu\matc\entity\Task.java
@@ -10,9 +8,11 @@ C:\Users\Heather\localrepos\clean-up-nicely\src\main\java\edu\matc\controller\Up
 C:\Users\Heather\localrepos\clean-up-nicely\src\main\java\edu\matc\persistence\UserHibernateDao.java
 C:\Users\Heather\localrepos\clean-up-nicely\src\main\java\edu\matc\persistence\SessionFactoryProvider.java
 C:\Users\Heather\localrepos\clean-up-nicely\src\main\java\edu\matc\controller\Login.java
+C:\Users\Heather\localrepos\clean-up-nicely\src\main\java\edu\matc\persistence\UserRoleHibernateDao.java
 C:\Users\Heather\localrepos\clean-up-nicely\src\main\java\edu\matc\utility\LocalDateAttributeConverter.java
 C:\Users\Heather\localrepos\clean-up-nicely\src\main\java\edu\matc\controller\LoadRoommateInfo.java
 C:\Users\Heather\localrepos\clean-up-nicely\src\main\java\edu\matc\controller\SearchHousehold.java
+C:\Users\Heather\localrepos\clean-up-nicely\src\main\java\edu\matc\entity\UserRole.java
 C:\Users\Heather\localrepos\clean-up-nicely\src\main\java\edu\matc\persistence\HouseholdHibernateDao.java
 C:\Users\Heather\localrepos\clean-up-nicely\src\main\java\edu\matc\persistence\ChoreLogHibernateDao.java
 C:\Users\Heather\localrepos\clean-up-nicely\src\main\java\edu\matc\persistence\Database.java

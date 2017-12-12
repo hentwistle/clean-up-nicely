@@ -7,13 +7,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <title>Uh-Oh</title>
-</head>
-<>
-  Invalid userid/password combination. <br />
-  <a href="index.jsp">Try again</a>
+<head><link href="../css/signin.css" rel="stylesheet"></head>
+<body>
+Invalid userid or password combination.
+<br />
+<a href="index.jsp">Try again</a>
+</form>
 </body>
 </html>
-
 

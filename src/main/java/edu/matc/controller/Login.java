@@ -51,13 +51,29 @@ public class Login extends HttpServlet {
 
     private final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(this.getClass());
 
-
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String dispatchString = "";
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //coming from login
+        log.error("logging in existing user");
 
         //get user and set variables based on that
         user  = uhd.getUser(req.getRemoteUser());
+
+        //add household
+        processRequest(user, req, resp);
+
+    }
+
+    /**
+     * Takes the input user and gets the current week, initializes chore logs or gets
+     * them if they already exist, and sets the necessary request attributes to be
+     * sent on to the next page.
+     *
+     * @param user the current user
+     */
+    private void processRequest(User user, HttpServletRequest req, HttpServletResponse resp) {
+        String dispatchString = "";
+
         household = hhd.getHouseholdByUserId(user.getUserid());
         housemates = uhd.getAllUsersByHousehold(household.getHouseholdId());
         housemates.remove(user.getUserid() - 1);
@@ -77,44 +93,33 @@ public class Login extends HttpServlet {
             createChoreLogsForWeek(logs);
         }
 
-        //for each chore, get the time entered in the database if it has already eben entered
+        //for each chore, get the time entered in the database if it has already been entered
         for (ChoreLogByUser choreLog : logs) {
             choreLogByUser = clhd.getTime(choreLog.getUserId(), choreLog.getWeekId(), choreLog.getTaskId());
         }
 
+        req.getSession().setAttribute("user", user);
+        req.getSession().setAttribute("household", household);
+        req.getSession().setAttribute("housemates", housemates);
+        req.getSession().setAttribute("week", week);
+        req.getSession().setAttribute("start_date", formatDate(week.getStartDate()));
+        req.getSession().setAttribute("end_date", formatDate(week.getEndDate()));
+        req.getSession().setAttribute("logs", logs);
+        req.getSession().setAttribute("tasks", tasks);
 
-        //set attributes for returning user
-        //if (req.getParameter("submit").equals("signIn")) {
-            //String inputPassword = req.getParameter("password");
-            //String userPassword = user.getPassword();
-
-            //if (inputPassword.equals(userPassword)) {
-                req.getSession().setAttribute("user", user);
-                req.getSession().setAttribute("household", household);
-                req.getSession().setAttribute("housemates", housemates);
-                req.getSession().setAttribute("week", week);
-                req.getSession().setAttribute("start_date", formatDate(week.getStartDate()));
-                req.getSession().setAttribute("end_date", formatDate(week.getEndDate()));
-                req.setAttribute("logs", logs);
-                req.getSession().setAttribute("tasks", tasks);
-
-                dispatchString = "main.jsp";
-            //} else {
-            //    log.error("your password does not match");
-            //}
-
-        //} else if (req.getParameter("submit").equals("signUp")) {
-
-            //set attributes for new user
-            //user.setUsername(req.getParameter("username"));
-            //user.setPassword(req.getParameter("password"));
-            //log.error("you are passing through a user with username " + user.getUsername() + " and password " + user.getPassword());
-            //dispatchString = "signUp.jsp";
-        //}
+        dispatchString = "main.jsp";
 
         RequestDispatcher dispatcher = req.getRequestDispatcher(dispatchString);
 
-        dispatcher.forward(req, resp);
+        try {
+            dispatcher.forward(req, resp);
+        } catch (ServletException se) {
+            log.error("servlet exception " + se);
+        } catch (IOException ioe) {
+            log.error("ioexception " + ioe);
+        }
+
+
     }
 
     /**

@@ -18,7 +18,7 @@ import static jdk.nashorn.internal.runtime.regexp.joni.Config.log;
 public class UpdateChoreLog extends HttpServlet {
     //private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         TaskHibernateDao thd = new TaskHibernateDao();
         ChoreLogHibernateDao clhd = new ChoreLogHibernateDao();
         WeekHibernateDao whd = new WeekHibernateDao();
@@ -27,7 +27,9 @@ public class UpdateChoreLog extends HttpServlet {
         Week week = null;
         ChoreLogByUser choreLog = new ChoreLogByUser();
         String minutes = null;
-        List<ChoreLogByUser> allLogsForUser = null;
+        List<ChoreLogByUser> logs = null;
+
+        System.out.println("we're here");
 
         tasks = thd.getAllTasks();
         user = (User) req.getSession().getAttribute("user");
@@ -42,9 +44,12 @@ public class UpdateChoreLog extends HttpServlet {
             clhd.update(choreLog);
         }
 
-        allLogsForUser = clhd.getAllLogsByUser(user.getUserid());
+        logs = clhd.getChoreLogEntry(user.getUserid(), week.getWeekId());
 
-        Set<Week> uniqueWeeks = new HashSet<Week>();
+        req.getSession().setAttribute("logs", logs);
+
+
+        /*Set<Week> uniqueWeeks = new HashSet<Week>();
         List<ChoreLogByUser> choreLogsByWeek = null;
 
         for (ChoreLogByUser log : allLogsForUser) {
@@ -61,7 +66,7 @@ public class UpdateChoreLog extends HttpServlet {
                 req.setAttribute("chore_week", choreLogsByWeek);
 
 
-        }
+        } */
 
         //for (Week week2: uniqueWeeks) {
 //
@@ -70,7 +75,7 @@ public class UpdateChoreLog extends HttpServlet {
     //        req.setAttribute("chores_week_" + week2.getWeekId(), choreLogsByWeek);
       //  }
 
-        /*//for each week
+        /*for each week
         for (int i = 1; i <allLogsForUser.size(); i++) {
             String startDate = null;
             String endDate = null;
@@ -98,25 +103,9 @@ public class UpdateChoreLog extends HttpServlet {
 
         } */
 
-        req.setAttribute("all_logs", allLogsForUser);
-        req.setAttribute("unique_weeks", orderedList);
+        //req.setAttribute("all_logs", allLogsForUser);
 
-
-
-
-        //clhd.getAllChoreLogs();
-
-        /*List <Week> weeks = null;
-        for (ChoreLogByUser cl : clhd.getAllChoreLogs()) {
-
-            cl.getWeekId();
-
-            if (cl.getWeekId() )
-
-
-        } */
-
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/archive.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/user/choreLogResults.jsp");
 
         dispatcher.forward(req, resp);
     }

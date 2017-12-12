@@ -163,6 +163,12 @@ public class UserHibernateDao {
             query.addEntity(User.class);
             query.setParameter("household_id", householdId);
             users = query.list();
+
+            for (Object user : users) {
+                log.error("user " + ((User) user).getUsername());
+            }
+
+            log.error("my users: " + users.toString());
         } catch (HibernateException he) {
             log.error("Error getting all housemates with householdId: " + householdId, he);
         } finally {

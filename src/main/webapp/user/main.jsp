@@ -56,7 +56,9 @@
                 <h4 class="cover-heading">${start_date} - ${end_date}</h4>
                 <p class="lead">
 
-                <form action="/saveChores" class="form-inline" commandName="allTaskEdit">
+                <form action="saveChores" class="form-inline" method="post">
+
+
                 <table id="taskTable" class="display" cellspacing="0" width="100%">
 
                     <thead>
@@ -74,9 +76,13 @@
                     </tbody>
                 </table>
 
-            </form></p>
+                <br /><br />
 
                 <button type="submit" name="submit" value="saveChores" class="btn btn-lg btn-secondary">Save Chores</button>
+            </form>
+                </p>
+
+
 
             </main>
 
