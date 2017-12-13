@@ -77,14 +77,11 @@
                 </table>
 
             </main>
+            <%= System.out.println(request.getServletContext().getRealPath("/")) %>
 
             <footer class="mastfoot">
                 <div class="inner">
                     <p><a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-
-                    <form action="logout" class="form-inline" method="post">
-                        <button type="submit" name="submit" class="btn btn-lg btn-secondary" id="btn-logout">Log Out</button>
-                    </form>
 
                 </div>
             </footer>

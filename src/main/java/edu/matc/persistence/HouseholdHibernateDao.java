@@ -90,62 +90,6 @@ public class HouseholdHibernateDao {
         return id;
     }
 
-    /** save  household
-     * @param household household to update
-     */
-
-    public void update(Household household) {
-        Transaction transaction = null;
-        Session session = null;
-        try {
-            session = SessionFactoryProvider.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
-            session.saveOrUpdate(household);
-            transaction.commit();
-        } catch (HibernateException he){
-            if (transaction != null) {
-                try {
-                    transaction.rollback();
-                } catch (HibernateException he2) {
-                    log.error("Error rolling back save of household: " + household, he2);
-                }
-            }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
-    }
-
-    /** save  household
-     * @param household household to update
-     */
-
-    public void delete(Household household) {
-        Transaction transaction = null;
-        Session session = null;
-        try {
-            session = SessionFactoryProvider.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
-            session.saveOrUpdate(household);
-            session.delete(household);
-
-            transaction.commit();
-        } catch (HibernateException he){
-            if (transaction != null) {
-                try {
-                    transaction.rollback();
-                } catch (HibernateException he2) {
-                    log.error("Error rolling back save of household: " + household, he2);
-                }
-            }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
-    }
-
     /** Get a single user for the given id
      *
      * @param userid user's userid

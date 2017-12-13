@@ -16,6 +16,10 @@
             <br /><br />
         </div>
         <div class="btn btn-lg btn-primary btn-block"><a href="user/login" class="signin-link">Let's try it!</a></div>
+        <div class="form-group">
+            <br />
+            <br /></div>
+            <div class="btn btn-lg btn-primary btn-block"><a href="admin/admin.jsp" class="signin-link">No, take me to the admin page</a></div>
 </div>
     </div>
 </body>

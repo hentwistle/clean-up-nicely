@@ -46,7 +46,7 @@
                                 </c:forEach>
                             </ul>
                         </div>
-                         | <a class="nav-link" href="household.jsp">Household</a>
+                         | <a class="nav-link" href="loadHouseholdInfo">Household</a>
                     </nav>
                 </div>
             </header>
@@ -90,7 +90,7 @@
                 <div class="inner">
                     <p><a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
 
-                    <form action="logout" class="form-inline"  method="post">
+                    <form action="../logout" class="form-inline"  method="post">
                         <button type="submit" name="submit" value="logout" class="btn btn-lg btn-secondary" id="btn-logout">Log Out</button>
                     </form>
 

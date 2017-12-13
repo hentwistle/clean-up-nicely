@@ -12,49 +12,47 @@
 - [X] Complete project plan.
 
 ### Week 3
-- [ ] Add JSPs
-- [ ] Add in bootstrap
-- [ ] Create database and all tables/columns locally
-- [ ] Time log entries
-- [ ] Determine independent research topic
-- [ ] Set up logging
-- [ ] Set up unit testing
+- [X] Add JSPs
+- [X] Add in bootstrap
+- [X] Create database and all tables/columns locally
+- [X] Time log entries
+- [X] Determine independent research topic
+- [X] Set up logging
+- [X] Set up unit testing
 
 ### Week 4
-- [ ] Add Hibernate config
-- [ ] Create DAO for user crud
-- [ ] Add unit tests for DAO
-- [ ] Add user login  
-- [ ] Add user registration
-- [ ] Time log entries
-- [ ] Add Maven for building
-- [ ] Add entities for remaining tables
+- [X] Add Hibernate config
+- [X] Create DAO for user crud
+- [X] Add unit tests for DAO
+- [X] Add user login  
+- [X] Add user registration
+- [X] Time log entries
+- [X] Add Maven for building
+- [X] Add entities for remaining tables
 
 ### Week 5
 
-- [ ] Time log entries
-- [ ] Testing, logging, catch-up.
+- [X] Time log entries
+- [X] Testing, logging, catch-up.
 
 ### Week 6
-- [ ] Time log entries
+- [X] Time log entries
 - [ ] Integration with Google Charts API
-- [ ] Create chore logging functionality
+- [X] Create chore logging functionality
 - [ ] Create add user to household functionality
 
 ### Week 7
 - [ ] Time log entries
-- [ ] Add security.
+- [X] Add security.
 - [ ] Determine how to add paging of search results
 - [ ] Structure archive page and cleanup.
 
 ### Week 8
 - [ ] Time log entries
-- [ ] Structure household page and cleanup.
+- [X] Structure household page and cleanup.
 
 ### Week 9
 - [ ] Time log entries
-- [ ] Create databse on openshift
-- [ ] Set up authentication and db access in app on openshift
 - [ ] Add password reset/reminder function
 
 ### Week 10
@@ -63,7 +61,7 @@
 
 ### Week 11
 - [ ] Time log entries
-- [ ] Make it pretty.
+- [X] Make it pretty.
 
 ### Week 12
 - [ ] Time log entries
@@ -74,10 +72,10 @@
 
 ### Week 14
 - [ ] Time log entries
-- [ ] Create final presentation
+- [X] Create final presentation
 
 ### Week 15
-- [ ] Final Presentation
+- [X] Final Presentation
 - [ ] Time log entries
 
 ### Week 16

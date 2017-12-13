@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * A simple servlet to welcome the user.
+ * A simple servlet to load the user's roommates' chores info
  * @author hentwistle
  */
 
@@ -31,16 +31,16 @@ public class LoadRoommateInfo extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        log.error("param " + req.getParameter("housemate"));
         User housemate = null;
-        UserHibernateDao uhd = new UserHibernateDao();
         Week week = null;
+        ChoreLogByUser choreLogByUser = null;
 
+        UserHibernateDao uhd = new UserHibernateDao();
         TaskHibernateDao thd = new TaskHibernateDao();
+        ChoreLogHibernateDao clhd = new ChoreLogHibernateDao();
+
         List<Task> tasks = null;
         List<ChoreLogByUser> logs = null;
-        ChoreLogHibernateDao clhd = new ChoreLogHibernateDao();
-        ChoreLogByUser choreLogByUser = null;
 
         housemate = uhd.getUser(req.getParameter("housemate"));
         req.setAttribute("housemate", housemate);
@@ -51,6 +51,7 @@ public class LoadRoommateInfo extends HttpServlet {
         logs = clhd.getChoreLogEntry(housemate.getUserid(), week.getWeekId());
 
 
+        //create housemate logs if they don't exist
         if (logs.size() == 0) {
             log.info("logs created");
             for (Task task : tasks) {

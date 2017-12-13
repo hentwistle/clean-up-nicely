@@ -41,19 +41,19 @@ public class UserRoleHibernateDao {
         return userRoles;
     }
 
-    /** Get a single user role for the given username
+    /** Get a single user role for the given id
      *
-     * @param userName user role's userName
+     * @param userRoleId user role's userName
      * @return UserRole
      */
-    public UserRole getUserRole(String userName) {
+    public UserRole getUserRole(int userRoleId) {
         UserRole userRole = null;
         Session session = null;
         try {
             session = SessionFactoryProvider.getSessionFactory().openSession();
-            userRole = (UserRole) session.get(UserRole.class, userName);
+            userRole = (UserRole) session.get(UserRole.class, userRoleId);
         } catch (HibernateException he) {
-            log.error("Error getting user role with userName: " + userName, he);
+            log.error("Error getting user role with userRoleId: " + userRoleId, he);
         } finally {
             if (session != null) {
                 session.close();
@@ -64,7 +64,7 @@ public class UserRoleHibernateDao {
 
 
     /** save new user role
-     * @param user role user role to insert
+     * @param userRole user role to insert
      * @return id of the inserted user
      */
 

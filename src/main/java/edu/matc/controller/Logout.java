@@ -18,12 +18,12 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * A simple servlet to welcome the user.
+ * A simple servlet to log out the user.
  * @author hentwistle
  */
 
 @WebServlet(
-        urlPatterns = {"/user/logout"}
+        urlPatterns = {"/logout"}
 )
 public class Logout extends HttpServlet {
 
@@ -34,7 +34,7 @@ public class Logout extends HttpServlet {
 
         req.getSession().invalidate();
 
-        log.error("logged out");
+        log.info("logging out");
         log.error(req.getServletPath());
         log.error(req.getContextPath());
         log.error(req.getPathTranslated());

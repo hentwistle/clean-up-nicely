@@ -1,12 +1,8 @@
 package edu.matc.entity;
 
-import edu.matc.utility.LocalDateAttributeConverter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -169,33 +165,6 @@ public class User {
     public void setOwner(boolean owner) {
         this.owner = owner;
     }
-
-
-    /**
-     * Gets birthdate
-     *
-     * @return the birthdate
-     */
-    // LocalDate getBirthdate() {
-    //    return birthdate;
-    //}
-
-    /**
-     * Sets birthdate.
-     *
-     * @param birthdate the birthdate
-     */
-    //public void setBirthdate(LocalDate birthdate) {
-    //    this.birthdate = birthdate;
-    //}
-
-
-    //public int calculateAge() {
-    //   LocalDate now = LocalDate.now();
-    //   long age = ChronoUnit.YEARS.between(birthdate, now);
-
-    //    return (int)age;
-    //}
 
     @Override
     public String toString() {

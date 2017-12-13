@@ -27,6 +27,9 @@ public class AddUser extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        //this is not currently being used but I wanted to keep it in case I want to work on things more later
+
      /*
         User user = new User();
         Household household = new Household();

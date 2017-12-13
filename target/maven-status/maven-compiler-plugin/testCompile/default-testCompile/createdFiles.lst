@@ -1,1 +1,6 @@
 edu\matc\persistence\UserHibernateDaoTest.class
+edu\matc\persistence\TaskHibernateDaoTest.class
+edu\matc\persistence\ChoreLogHibernateDaoTest.class
+edu\matc\persistence\HouseholdHibernateDaoTest.class
+edu\matc\persistence\WeekHibernateDaoTest.class
+edu\matc\persistence\UserRoleHibernateDaoTest.class
