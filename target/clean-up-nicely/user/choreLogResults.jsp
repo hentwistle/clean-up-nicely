@@ -1,5 +1,5 @@
 <%@include file="../taglib.jsp"%>
-<c:set var="title" value="Search Results" />
+<c:set var="title" value="Clean Up Nicely: Chore Results" />
 <%@include file="../head.jsp"%>
 
 <script type="text/javascript" class="init">
@@ -72,10 +72,7 @@
             <footer class="mastfoot">
                 <div class="inner">
                     <p><a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>
-
-                    <form action="logout" class="form-inline" method="post">
-                        <button type="submit" name="submit" class="btn btn-lg btn-secondary" id="btn-logout">Log Out</button>
-                    </form>
+`
 
                 </div>
             </footer>

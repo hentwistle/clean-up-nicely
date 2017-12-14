@@ -1,5 +1,5 @@
 <%@include file="../taglib.jsp"%>
-<c:set var="title" value="User Search Home Page" />
+<c:set var="title" value="Clean Up Nicely: Login" />
 <%@include file="../head.jsp"%>
 <html>
 <head><link href="../css/signin.css" rel="stylesheet"></head>

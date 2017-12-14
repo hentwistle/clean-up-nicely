@@ -38,22 +38,4 @@ public class WeekHibernateDaoTest {
         assertEquals("2018-01-28 23:59:59.0", week.getEndDate().toString());
     }
 
-    @Test
-    public void getWeekByDateTest() throws Exception {
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ssX");
-
-        Date parsedTimeStamp = dateFormat.parse("2018-01-22 00:00:00.0");
-        System.out.println(parsedTimeStamp);
-
-        Timestamp timestamp = new Timestamp(parsedTimeStamp.getTime());
-        System.out.println("week" + timestamp);
-
-        Week week = (Week) whd.getWeekByDate(timestamp);
-
-        assertNotNull(week);
-        assertEquals(15, week.getWeekId());
-    }
-
 }

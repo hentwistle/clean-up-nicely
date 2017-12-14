@@ -35,10 +35,6 @@ public class Logout extends HttpServlet {
         req.getSession().invalidate();
 
         log.info("logging out");
-        log.error(req.getServletPath());
-        log.error(req.getContextPath());
-        log.error(req.getPathTranslated());
-        log.error(req.getPathInfo());
         RequestDispatcher dispatcher = req.getRequestDispatcher("/index.jsp");
 
         dispatcher.forward(req, resp);

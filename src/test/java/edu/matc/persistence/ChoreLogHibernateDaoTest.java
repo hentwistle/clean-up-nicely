@@ -26,50 +26,44 @@ public class ChoreLogHibernateDaoTest {
         List<ChoreLogByUser> logs = clhd.getAllChoreLogs();
         assertTrue(logs.size() > 0);
     }
-/*
+
     @Test
-    public void getUserTest() throws Exception {
-        User user = (User) uhd.getUser("hentwistle");
-        assertNotNull(user);
-        assertEquals("Entwistle", user.getLastName());
+    public void getChoreLogEntryTest() throws Exception {
+        List<ChoreLogByUser> logs = clhd.getChoreLogEntry(1, 9);
+        assertNotNull(logs);
+        assertEquals(logs.get(1).getMinutes(), 20);
+    }
+
+
+    @Test
+    public void getAllLogsByUserTest() throws Exception {
+        List<ChoreLogByUser> logs = clhd.getAllLogsByUser(1);
+
+        assertTrue("Incorrect size of results", logs.size() > 0);
     }
 
     @Test
-    public void insertUserTest() throws Exception {
-        User user = new User(10, "asmith", "asmith@gmail.com", "passwordsmith", "Amanda", "Smith", false);
+    public void insertChoreLogTest() throws Exception {
+        ChoreLogByUser log = new ChoreLogByUser();
+        log.setTaskId(1);
+        log.setUserId(3);
+        log.setWeekId(9);
+        log.setMinutes(29);
 
-        String newUserName = uhd.insert(user);
-        assertEquals("Incorrect size of results", listOfUsersInitialSize + 1, uhd.getAllUsers().size());
-        assertEquals("User not saved correctly", user.toString(), uhd.getUser(newUserName).toString());
+        int id = clhd.insert(log);
+
+        assertTrue("No logs are returned for the inserted user",clhd.getAllLogsByUser(1).size() > 0);
     }
 
     @Test
-    public void updateUserTest() throws Exception {
+    public void updateChoreLogTest() throws Exception {
+        List<ChoreLogByUser> logs = clhd.getChoreLogEntry(1, 9);
 
-        listOfUsersInitialSize = uhd.getAllUsers().size();
-        String nameOfToBeUpdatedUser = "cring";
-        User user = (User) uhd.getUser(nameOfToBeUpdatedUser);
-        user.setLastName("Smith");
-        uhd.update(user);
+        ChoreLogByUser log = logs.get(3);
+        log.setMinutes(45);
 
-        assertEquals("Incorrect size of results", listOfUsersInitialSize, uhd.getAllUsers().size());
-        assertEquals("User not saved correctly", user.toString(), uhd.getUser(nameOfToBeUpdatedUser).toString());
+        clhd.update(log);
+
+        assertEquals("The log was not updated", ((ChoreLogByUser) clhd.getChoreLogEntry(1, 9).get(3)).getMinutes(), 45);
     }
-
-    @Test
-    public void deleteUserTest() throws Exception {
-        User user = uhd.getUser("christi");
-
-        uhd.delete(user);
-
-        assertEquals("The user was not deleted", 8, uhd.getAllUsers().size());
-    }
-
-    @Test
-    public void getAllUsersByHouseholdTest() throws Exception {
-        List<User> users = uhd.getAllUsersByHousehold(1);
-
-        assertEquals("You returned an unexpected number of household members", 3, users.size());
-    } */
-
 }

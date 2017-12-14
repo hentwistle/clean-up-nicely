@@ -1,6 +1,6 @@
 
 <%@include file="../taglib.jsp"%>
-<c:set var="title" value="Search Results" />
+<c:set var="title" value="Clean Up Nicely: Admin" />
 <%@include file="../head.jsp"%>
 
 <html>

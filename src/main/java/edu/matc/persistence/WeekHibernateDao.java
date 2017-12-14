@@ -64,25 +64,4 @@ public class WeekHibernateDao {
         }
         return week;
     }
-
-    /** Get a single week for the given id
-     *
-     * @param date week's date
-     * @return week
-     */
-    public Week getWeekByDate(Timestamp date) {
-        Week week = null;
-        Session session = null;
-        try {
-            session = SessionFactoryProvider.getSessionFactory().openSession();
-            week = (Week) session.get(Week.class, date);
-        } catch (HibernateException he) {
-            log.error("Error getting week with date: " + date, he);
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
-        return week;
-    }
 }

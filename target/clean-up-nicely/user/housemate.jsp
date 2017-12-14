@@ -1,5 +1,5 @@
 <%@include file="../taglib.jsp"%>
-<c:set var="title" value="Search Results" />
+<c:set var="title" value="Clean Up Nicely: Your Housemate" />
 <%@include file="../head.jsp"%>
 
 <script type="text/javascript" class="init">
@@ -77,7 +77,6 @@
                 </table>
 
             </main>
-            <%= System.out.println(request.getServletContext().getRealPath("/")) %>
 
             <footer class="mastfoot">
                 <div class="inner">

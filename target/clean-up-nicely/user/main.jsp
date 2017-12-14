@@ -1,5 +1,5 @@
 <%@include file="../taglib.jsp"%>
-<c:set var="title" value="Search Results" />
+<c:set var="title" value="Clean Up Nicely: Your Chores" />
 <%@include file="../head.jsp"%>
 
 <script type="text/javascript" class="init">

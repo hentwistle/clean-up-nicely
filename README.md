@@ -32,3 +32,12 @@ It's a perennial problem for anyone who doesn't live alone: your roommate or spo
 ### [Project Plan](ProjectPlan.md)
 
 ### [Time Log](TimeLog.md) 
+
+### After:
+
+### [AWS Link](http://52.15.105.22:8080/clean-up-nicely/)
+  * Unfortunately I can't seem to get past the login windows. I was able to confirm that it was connected to my database, so I think it must have to do with my paths. I wish I had more time to check this out.
+  
+### [Video](https://youtu.be/T-6DaPtSVSo)
+
+### [Code Coverage](code_coverage.png)
